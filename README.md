@@ -47,11 +47,11 @@ Safeguards implemented:
 Mermaid flow:
 ```mermaid
 flowchart TD
-  A[Start slice (since/until)] --> B[pace + rate-limit]
+  A[Start slice: since -> until] --> B[pace + rate limit]
   B --> C[GET keyword_search]
   C -->|429| D[log rate_limit_hit; sleep; retry]
-  C -->|non-200| E[fail/stop slice]
-  C -->|200| F[append raw page; log min/max ts + cursor hash]
+  C -->|non-200| E[stop slice]
+  C -->|200| F[append raw page; log min/max + cursor hash]
   F --> G{repeat cursor?}
   G -->|yes| H[log repeat_cursor; stop slice]
   G -->|no| I{page >= max_pages?}
@@ -61,7 +61,7 @@ flowchart TD
   K -->|no| M[next cursor]
   M --> B
   H & J & L --> N{more slices?}
-  N -->|yes (step-back)| A
+  N -->|yes| A
   N -->|no| O[finish]
 ```
 
