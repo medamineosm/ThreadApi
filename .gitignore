@@ -1,0 +1,6 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+threads_*.json
+results.json
+*.log
